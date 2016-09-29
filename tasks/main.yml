@@ -1,0 +1,19 @@
+---
+- name: Deploy sshd conf
+  template:
+    src: 'sshd_config.j2'
+    dest: '/etc/ssh/sshd_config'
+    owner: 'root'
+    group: 'root'
+    force: 'yes'
+    mode: '0644'
+    validate: '/sbin/sshd -T -f %s'
+  notify: 'Restart sshd'
+- name: Deploy authorized keys
+  template:
+    src: 'authorized_keys.j2'
+    dest: '/etc/ssh/authorized_keys'
+    owner: 'root'
+    group: 'root'
+    force: 'yes'
+    mode: '0444'
