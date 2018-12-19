@@ -1,0 +1,25 @@
+---
+- name: openssh | Deploy openssh daemon configuration
+  template:
+    src: "sshd_config.j2"
+    dest: "{{ hostvars[inventory_hostname]['openssh_destination'] + '/' +
+              'sshd_config' }}"
+    owner: "root"
+    group: "root"
+    mode: "0644"
+    # Use a non-existing user, to ensure that systems that have a Match block
+    # configured, will be evaluated as well
+    validate: "sshd -T -C user=ansible,host=none,addr=none -f %s"
+  notify:
+  - "Reload openssh daemon"
+- name: openssh | Enable openssh daemon service
+  systemd:
+    name: "{{ hostvars[inventory_hostname]['openssh_service'] }}"
+    enabled: "yes"
+  when:
+  - "hostvars[inventory_hostname]['openssh'] |
+     json_query(vars['openssh_enable']) is defined"
+  - "hostvars[inventory_hostname]['openssh'] |
+     json_query(vars['openssh_enable']) == 'true'"
+  vars:
+    openssh_enable: "[] | map(&enable || 'false', @) | [0]"

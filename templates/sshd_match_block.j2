@@ -1,0 +1,23 @@
+{% for m in s.match %}
+{% if (m.condition is defined and m.condition != '') and
+      (m.policy is defined and m.policy != '') %}
+{% for c in m.condition %}
+{% if (c.key is defined and c.key != '') and
+      (c.value is defined and c.value != '') %}
+{% if loop.first %}
+{{ 'Match' -}}
+{% endif %}
+{{ ' ' ~ c.key ~ ' ' ~ c.value -}}
+{% endif %}
+{% if loop.last %}
+{{ '' }}
+{% endif %}
+{% endfor %}
+{% for p in m.policy %}
+{% if (p.key is defined and p.key != '') and
+      (p.value is defined and p.value != '') %}
+{{ '\t' ~ p.key ~ ' ' ~ p.value }}
+{% endif %}
+{% endfor %}
+{% endif %}
+{% endfor %}

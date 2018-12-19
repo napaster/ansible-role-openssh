@@ -1,3 +1,14 @@
 ---
-- name: Restart sshd
-  service: name='sshd' state='restarted' enabled='yes'
+- name: Reload openssh daemon
+  service:
+    name: "{{ hostvars[inventory_hostname]['openssh_service'] }}"
+    state: "{{ vars['openssh_restart_cmd'] }}"
+  when:
+  - "hostvars[inventory_hostname]['openssh'] is defined"
+  - "hostvars[inventory_hostname]['openssh'] != ''"
+  - "hostvars[inventory_hostname]['openssh'] |
+     json_query(vars['openssh_restart']) is defined"
+  - "hostvars[inventory_hostname]['openssh'] |
+     json_query(vars['openssh_restart']) == 'true'"
+  vars:
+    openssh_restart: "[] | map(&restart || 'false', @) | [0]"

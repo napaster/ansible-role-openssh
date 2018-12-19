@@ -1,0 +1,34 @@
+---
+- name: openssh | Add the OS specific variables
+  include_vars: "{{
+    hostvars[inventory_hostname]['ansible_os_family'] + '.yml' }}"
+- name: openssh | Set facts about openssh role
+  set_fact:
+    openssh_restart_method: "{{ hostvars[inventory_hostname]['openssh'] |
+      json_query('[].restart_method | [0]') }}"
+    openssh_instance_settings: "{{ hostvars[inventory_hostname]['openssh'] |
+      json_query('[].settings[]') }}"
+- name: openssh | Assert that restart method variable have proper value
+  assert:
+    that:
+    - "vars['openssh_restart_method'] in ['reload', 'restart']"
+    msg: "OpenSSH restart method must be in 'reload' or 'restart'."
+  when:
+  - "vars['openssh_restart_method'] is defined"
+- name: openssh | Set service restart method when restart method is defined
+  set_fact:
+    openssh_restart_cmd: "{{ vars['openssh_restart_method'] + 'ed' }}"
+  when:
+  - "vars['openssh_restart_method'] is defined"
+- name: openssh | Set service restart method to SIGHUP
+  set_fact:
+    openssh_restart_cmd: "reloaded"
+  when:
+  - "vars['openssh_restart_method'] is not defined"
+- name: openssh | Make work dir
+  file:
+    path: "{{ hostvars[inventory_hostname]['openssh_destination'] }}"
+    state: "directory"
+    owner: "root"
+    group: "root"
+    mode: "0755"
