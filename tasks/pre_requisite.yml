@@ -13,6 +13,7 @@
     that:
     - "vars['openssh_restart_method'] in ['reload', 'restart']"
     msg: "OpenSSH restart method must be in 'reload' or 'restart'."
+    quiet: "true"
   when:
   - "vars['openssh_restart_method'] is defined"
 - name: openssh | Set service restart method when restart method is defined
