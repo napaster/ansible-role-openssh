@@ -7,7 +7,11 @@
 {% if loop.first %}
 {{ 'Match' -}}
 {% endif %}
+{% if c.value is string %}
 {{ ' ' ~ c.key ~ ' ' ~ c.value -}}
+{% elif c.value is sequence %}
+{{ ' ' ~ c.key ~ ' ' ~ c.value | join(',')-}}
+{% endif %}
 {% endif %}
 {% if loop.last %}
 {{ '' }}
@@ -16,7 +20,11 @@
 {% for p in m.policy %}
 {% if (p.key is defined and p.key != '') and
       (p.value is defined and p.value != '') %}
+{% if p.value is string %}
 {{ '\t' ~ p.key ~ ' ' ~ p.value }}
+{% elif p.value is sequence %}
+{{ '\t' ~ p.key ~ ' ' ~ p.value | join(' ')-}}
+{% endif %}
 {% endif %}
 {% endfor %}
 {% endif %}

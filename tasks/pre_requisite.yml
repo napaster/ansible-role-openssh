@@ -6,7 +6,7 @@
   set_fact:
     openssh_restart_method: "{{ hostvars[inventory_hostname]['openssh'] |
       json_query('[].restart_method | [0]') }}"
-    openssh_instance_settings: "{{ hostvars[inventory_hostname]['openssh'] |
+    openssh_settings: "{{ hostvars[inventory_hostname]['openssh'] |
       json_query('[].settings[]') }}"
 - name: openssh | Assert that restart method variable have proper value
   assert:
@@ -26,9 +26,9 @@
     openssh_restart_cmd: "reloaded"
   when:
   - "vars['openssh_restart_method'] is not defined"
-- name: openssh | Make work dir
+- name: openssh | Create ssh directory
   file:
-    path: "{{ hostvars[inventory_hostname]['openssh_destination'] }}"
+    path: "{{ hostvars[inventory_hostname]['openssh_dest'] }}"
     state: "directory"
     owner: "root"
     group: "root"

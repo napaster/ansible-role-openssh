@@ -1,6 +1,6 @@
 ---
-- import_tasks: pre_requisite.yml
-- include_tasks: deploy_openssh.yml
+- import_tasks: "pre_requisite.yml"
+- include_tasks: "deploy_openssh.yml"
   when:
-  - "vars['openssh_instance_settings'] is defined"
-  - "vars['openssh_instance_settings'] != []"
+  - "vars['openssh_settings'] is defined"
+  - "vars['openssh_settings'] != []"

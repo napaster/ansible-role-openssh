@@ -2,7 +2,7 @@
 {{ '# ' + ansible_managed }}
 {{ '# ' + 'Do not edit manually' }}
 
-{% for s in vars['openssh_instance_settings'] %}
+{% for s in vars['openssh_settings'] %}
 {% if s.accept_env is defined and s.accept_env != '' %}
 {{ 'AcceptEnv' ~ ' ' ~ s.accept_env | join(' ') }}
 {% endif %}

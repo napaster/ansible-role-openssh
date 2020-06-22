@@ -1,6 +1,6 @@
 ---
 - name: Reload openssh daemon
-  service:
+  systemd:
     name: "{{ hostvars[inventory_hostname]['openssh_service'] }}"
     state: "{{ vars['openssh_restart_cmd'] }}"
   when:

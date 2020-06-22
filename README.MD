@@ -696,30 +696,19 @@ openssh:
 # global section of the config file.
     match:
     - condition:
+      - key: 'User'
+        value: 'bender'
       - key: 'Address'
-        value: '1.2.3.4'
+        value:
+        - '10.0.0.0/8'
+        - '100.64.0.0/10'
+        - '192.168.0.0/16'
+        - '198.19.0.0/16'
       policy:
       - key: 'PasswordAuthentication'
         value: 'yes'
-    - condition:
-      - key: 'User'
-        value: 'John'
-      policy:
-      - key: 'X11Forwarding'
-        value: 'yes'
-    - condition:
-      - key: 'User'
-        value: 'John'
-      - key: 'Address'
-        value: '172.16.1.*'
-    - condition:
-      - key: 'Address'
-        value: '10.20.30.40,80.90.100.200'
-      - key: 'Host'
-        value: 'dispatch.raymii.org'
-      policy:
-      - key: 'PasswordAuthentication'
-        value: 'yes'
-      - key: 'PermitRootLogin'
-        value: 'yes'
+      - key: 'AuthenticationMethods'
+        value:
+        - 'publickey'
+        - 'password'
 ```
