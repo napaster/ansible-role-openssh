@@ -10,7 +10,7 @@
 {% if c.value is string %}
 {{ ' ' ~ c.key ~ ' ' ~ c.value -}}
 {% elif c.value is sequence %}
-{{ ' ' ~ c.key ~ ' ' ~ c.value | join(',')-}}
+{{ ' ' ~ c.key ~ ' ' ~ c.value | join(',') }}
 {% endif %}
 {% endif %}
 {% if loop.last %}
@@ -23,7 +23,7 @@
 {% if p.value is string %}
 {{ '\t' ~ p.key ~ ' ' ~ p.value }}
 {% elif p.value is sequence %}
-{{ '\t' ~ p.key ~ ' ' ~ p.value | join(' ')-}}
+{{ '\t' ~ p.key ~ ' ' ~ p.value | join(' ') }}
 {% endif %}
 {% endif %}
 {% endfor %}
