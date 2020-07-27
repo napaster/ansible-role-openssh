@@ -318,7 +318,13 @@
 {{ 'StreamLocalBindUnlink' + ' ' + s.stream_local_bind_unlink }}
 {% endif %}
 {% if s.subsystem is defined and s.subsystem != '' %}
-{{ 'Subsystem' + ' ' + s.subsystem }}
+{% for ss in s.subsystem %}
+{% if ss.name is defined and ss.name in ['sftp-server', 'internal-sftp'] %}
+{% if ss.command is defined and ss.command != '' %}
+{{ 'Subsystem ' + ss.name + ' ' + ss.command }}
+{% endif %}
+{% endif %}
+{% endfor %}
 {% endif %}
 {% if s.syslog_facility is defined and s.syslog_facility in ['DAEMON', 'USER',
    'AUTH', 'LOCAL0', 'LOCAL1', 'LOCAL2', 'LOCAL3', 'LOCAL4', 'LOCAL5', 'LOCAL6',
