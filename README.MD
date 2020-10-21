@@ -621,8 +621,10 @@ openssh:
 # 'chroot_directory' to force a different filesystem root on clients. By default
 # no subsystems are defined.
     subsystem:
-    - name: 'sftp-server'
+    - name: 'sftp'
       command: '/usr/lib/ssh/sftp-server'
+    - name: 'sftp'
+      command: 'internal-sftp'
 # Gives the facility code that is used when logging messages from sshd. The
 # possible values are: 'DAEMON', 'USER', 'AUTH', 'LOCAL0', 'LOCAL1', 'LOCAL2',
 # 'LOCAL3', 'LOCAL4', 'LOCAL5', 'LOCAL6', 'LOCAL7'. The default is 'AUTH'.

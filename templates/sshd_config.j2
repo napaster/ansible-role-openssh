@@ -319,7 +319,7 @@
 {% endif %}
 {% if s.subsystem is defined and s.subsystem != '' %}
 {% for ss in s.subsystem %}
-{% if ss.name is defined and ss.name in ['sftp-server', 'internal-sftp'] %}
+{% if ss.name is defined and ss.name != '' %}
 {% if ss.command is defined and ss.command != '' %}
 {{ 'Subsystem ' + ss.name + ' ' + ss.command }}
 {% endif %}
