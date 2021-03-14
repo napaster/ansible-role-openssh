@@ -4,233 +4,231 @@
 
 {% for s in vars['openssh_settings'] %}
 {% if s.accept_env is defined and s.accept_env != '' %}
-{{ 'AcceptEnv' ~ ' ' ~ s.accept_env | join(' ') }}
+{{ 'AcceptEnv ' ~ s.accept_env | join(' ') }}
 {% endif %}
-{% if s.address_family is defined and
-      s.address_family in ['any', 'inet', 'inet6'] %}
-{{ 'AddressFamily' + ' ' + s.address_family }}
+{% if s.address_family is defined and s.address_family in ['any', 'inet',
+  'inet6'] %}
+{{ 'AddressFamily ' + s.address_family }}
 {% endif %}
-{% if s.allow_agent_forwarding is defined and
-      s.allow_agent_forwarding in ['yes', 'no'] %}
-{{ 'AllowAgentForwarding' + ' ' + s.allow_agent_forwarding }}
+{% if s.allow_agent_forwarding is defined and s.allow_agent_forwarding in
+  ['yes', 'no'] %}
+{{ 'AllowAgentForwarding ' + s.allow_agent_forwarding }}
 {% endif %}
 {% if s.allow_groups is defined and s.allow_groups != '' %}
-{{ 'AllowGroups' ~ ' ' ~ s.allow_groups | join(' ') }}
+{{ 'AllowGroups ' ~ s.allow_groups | join(' ') }}
 {% endif %}
 {% if s.allow_stream_local_forwarding is defined and
-      s.allow_stream_local_forwarding in ['yes', 'no', 'all', 'local',
-                                          'remote'] %}
-{{ 'AllowStreamLocalForwarding' + ' ' + s.allow_stream_local_forwarding }}
+  s.allow_stream_local_forwarding in ['yes', 'no', 'all', 'local', 'remote'] %}
+{{ 'AllowStreamLocalForwarding ' + s.allow_stream_local_forwarding }}
 {% endif %}
-{% if s.allow_tcp_forwarding is defined and
-      s.allow_tcp_forwarding in ['yes', 'no'] %}
-{{ 'AllowTcpForwarding' + ' ' + s.allow_tcp_forwarding }}
+{% if s.allow_tcp_forwarding is defined and s.allow_tcp_forwarding in
+  ['yes', 'no'] %}
+{{ 'AllowTcpForwarding ' + s.allow_tcp_forwarding }}
 {% endif %}
 {% if s.allow_users is defined and s.allow_users != '' %}
-{{ 'AllowUsers' ~ ' \"' ~ s.allow_users | join(' ') ~ '\"'}}
+{{ 'AllowUsers \"' ~ s.allow_users | join(' ') ~ '\"'}}
 {% endif %}
 {% if s.authentication_methods is defined and s.authentication_methods != '' %}
 {% include 'sshd_auth_methods_block.j2' %}
 {% endif %}
 {% if s.authorized_keys_command is defined and
-      s.authorized_keys_command != '' %}
-{{ 'AuthorizedKeysCommand' ~ ' ' ~ s.authorized_keys_command }}
+  s.authorized_keys_command != '' %}
+{{ 'AuthorizedKeysCommand ' ~ s.authorized_keys_command }}
 {% endif %}
 {% if s.authorized_keys_command_user is defined and
-      s.authorized_keys_command_user != '' %}
-{{ 'AuthorizedKeysCommandUser' ~ ' ' ~ s.authorized_keys_command_user }}
+  s.authorized_keys_command_user != '' %}
+{{ 'AuthorizedKeysCommandUser ' ~ s.authorized_keys_command_user }}
 {% endif %}
 {% if s.authorized_keys_file is defined and s.authorized_keys_file != '' %}
-{{ 'AuthorizedKeysFile' ~ ' \"' ~ s.authorized_keys_file | join(' ') ~ '\"' }}
+{{ 'AuthorizedKeysFile \"' ~ s.authorized_keys_file | join(' ') ~ '\"' }}
 {% endif %}
 {% if s.authorized_principals_command is defined and
-      s.authorized_principals_command != '' %}
-{{ 'AuthorizedPrincipalsCommand' ~ ' ' ~ s.authorized_principals_command }}
+  s.authorized_principals_command != '' %}
+{{ 'AuthorizedPrincipalsCommand ' ~ s.authorized_principals_command }}
 {% endif %}
 {% if s.authorized_principals_command_user is defined and
-      s.authorized_principals_command_user != '' %}
-{{ 'AuthorizedPrincipalsCommandUser' ~ ' ' ~
-    s.authorized_principals_command_user }}
+  s.authorized_principals_command_user != '' %}
+{{ 'AuthorizedPrincipalsCommandUser ' ~
+  s.authorized_principals_command_user }}
 {% endif %}
 {% if s.authorized_principals_file is defined and
-      s.authorized_principals_file != '' %}
-{{ 'AuthorizedPrincipalsFile' ~ ' ' ~ s.authorized_principals_file }}
+  s.authorized_principals_file != '' %}
+{{ 'AuthorizedPrincipalsFile ' ~ s.authorized_principals_file }}
 {% endif %}
 {% if s.banner is defined and s.banner != '' %}
-{{ 'Banner' ~ ' ' ~ s.banner }}
+{{ 'Banner ' ~ s.banner }}
 {% endif %}
 {% if s.ca_signature_algorithms is defined and
-      s.ca_signature_algorithms != '' %}
-{{ 'CASignatureAlgorithms' ~ ' ' ~ s.ca_signature_algorithms | join(',') }}
+  s.ca_signature_algorithms != '' %}
+{{ 'CASignatureAlgorithms ' ~ s.ca_signature_algorithms | join(',') }}
 {% endif %}
 {% if s.challenge_response_authentication is defined and
-      s.challenge_response_authentication in ['yes', 'no'] %}
-{{ 'ChallengeResponseAuthentication' + ' ' +
-    s.challenge_response_authentication }}
+  s.challenge_response_authentication in ['yes', 'no'] %}
+{{ 'ChallengeResponseAuthentication ' + s.challenge_response_authentication }}
 {% endif %}
 {% if s.chroot_directory is defined and s.chroot_directory != '' %}
-{{ 'ChrootDirectory' ~ ' ' ~ s.chroot_directory }}
+{{ 'ChrootDirectory ' ~ s.chroot_directory }}
 {% endif %}
 {% if s.ciphers is defined and s.ciphers != '' %}
-{{ 'Ciphers' ~ ' ' ~ s.ciphers | join(',') }}
+{{ 'Ciphers ' ~ s.ciphers | join(',') }}
 {% endif %}
 {% if s.client_alive_count_max is defined and s.client_alive_count_max != '' %}
-{{ 'ClientAliveCountMax' ~ ' ' ~ s.client_alive_count_max }}
+{{ 'ClientAliveCountMax ' ~ s.client_alive_count_max }}
 {% endif %}
 {% if s.client_alive_interval is defined and s.client_alive_interval != '' %}
-{{ 'ClientAliveInterval' ~ ' ' ~ s.client_alive_interval }}
+{{ 'ClientAliveInterval ' ~ s.client_alive_interval }}
 {% endif %}
 {% if s.compression is defined and s.compression in ['yes', 'no', 'delayed'] %}
-{{ 'Compression' ~ ' ' ~ s.compression }}
+{{ 'Compression ' ~ s.compression }}
 {% endif %}
 {% if s.deny_groups is defined and s.deny_groups != '' %}
-{{ 'DenyGroups' ~ ' ' ~ s.deny_groups | join(' ') }}
+{{ 'DenyGroups ' ~ s.deny_groups | join(' ') }}
 {% endif %}
 {% if s.deny_users is defined and s.deny_users != '' %}
-{{ 'DenyUsers' ~ ' ' ~ s.deny_users | join(' ') }}
+{{ 'DenyUsers ' ~ s.deny_users | join(' ') }}
 {% endif %}
 {% if s.disable_forwarding is defined and s.disable_forwarding == 'true' %}
 {{ 'DisableForwarding' }}
 {% endif %}
 {% if s.expose_auth_info is defined and s.expose_auth_info in ['yes', 'no'] %}
-{{ 'ExposeAuthInfo' + ' ' + s.expose_auth_info }}
+{{ 'ExposeAuthInfo ' + s.expose_auth_info }}
 {% endif %}
 {% if s.fingerprint_hash is defined and s.fingerprint_hash in ['yes', 'no'] %}
-{{ 'FingerprintHash' + ' ' + s.fingerprint_hash }}
+{{ 'FingerprintHash ' + s.fingerprint_hash }}
 {% endif %}
 {% if s.force_command is defined and s.force_command != '' %}
-{{ 'ForceCommand' ~ ' ' ~ s.force_command }}
+{{ 'ForceCommand ' ~ s.force_command }}
 {% endif %}
-{% if s.gateway_ports is defined and
-      s.gateway_ports in ['yes', 'no', 'clientspecified'] %}
-{{ 'GatewayPorts' + ' ' + s.gateway_ports }}
+{% if s.gateway_ports is defined and s.gateway_ports in ['yes', 'no',
+  'clientspecified'] %}
+{{ 'GatewayPorts ' + s.gateway_ports }}
 {% endif %}
-{% if s.gssapi_authentication is defined and
-      s.gssapi_authentication in ['yes', 'no'] %}
-{{ 'GSSAPIAuthentication' + ' ' + s.gssapi_authentication }}
+{% if s.gssapi_authentication is defined and s.gssapi_authentication in
+  ['yes', 'no'] %}
+{{ 'GSSAPIAuthentication ' + s.gssapi_authentication }}
 {% endif %}
 {% if s.gssapi_cleanup_credentials is defined and
-      s.gssapi_cleanup_credentials in ['yes', 'no'] %}
-{{ 'GSSAPICleanupCredentials' + ' ' + s.gssapi_cleanup_credentials }}
+  s.gssapi_cleanup_credentials in ['yes', 'no'] %}
+{{ 'GSSAPICleanupCredentials ' + s.gssapi_cleanup_credentials }}
 {% endif %}
 {% if s.gssapi_strict_acceptor_check is defined and
-      s.gssapi_strict_acceptor_check in ['yes', 'no'] %}
-{{ 'GSSAPIStrictAcceptorCheck' + ' ' + s.gssapi_strict_acceptor_check }}
+  s.gssapi_strict_acceptor_check in ['yes', 'no'] %}
+{{ 'GSSAPIStrictAcceptorCheck ' + s.gssapi_strict_acceptor_check }}
 {% endif %}
 {% if s.hostbased_accepted_key_types is defined and
-      s.hostbased_accepted_key_types != '' %}
-{{ 'HostbasedAcceptedKeyTypes' ~ ' ' ~
-    s.hostbased_accepted_key_types | join(',') }}
+  s.hostbased_accepted_key_types != '' %}
+{{ 'HostbasedAcceptedKeyTypes ' ~
+  s.hostbased_accepted_key_types | join(',') }}
 {% endif %}
 {% if s.hostbased_authentication is defined and
-      s.hostbased_authentication in ['yes', 'no'] %}
-{{ 'HostbasedAuthentication' + ' ' + s.hostbased_authentication }}
+  s.hostbased_authentication in ['yes', 'no'] %}
+{{ 'HostbasedAuthentication ' + s.hostbased_authentication }}
 {% endif %}
 {% if s.hostbased_uses_name_from_packet_only is defined and
-      s.hostbased_uses_name_from_packet_only in ['yes', 'no'] %}
-{{ 'HostbasedUsesNameFromPacketOnly' + ' ' +
-    s.hostbased_uses_name_from_packet_only }}
+  s.hostbased_uses_name_from_packet_only in ['yes', 'no'] %}
+{{ 'HostbasedUsesNameFromPacketOnly ' +
+  s.hostbased_uses_name_from_packet_only }}
 {% endif %}
 {% if s.host_certificate is defined and s.host_certificate != '' %}
-{{ 'HostCertificate' ~ ' ' ~ s.host_certificate }}
+{{ 'HostCertificate ' ~ s.host_certificate }}
 {% endif %}
 {% if s.host_key is defined and s.host_key != '' %}
-{{ 'HostKey' ~ ' ' ~ s.host_key }}
+{{ 'HostKey ' ~ s.host_key }}
 {% endif %}
 {% if s.host_key_agent is defined and s.host_key_agent != '' %}
-{{ 'HostKeyAgent' ~ ' ' ~ s.host_key_agent }}
+{{ 'HostKeyAgent ' ~ s.host_key_agent }}
 {% endif %}
 {% if s.host_key_algorithms is defined and s.host_key_algorithms != '' %}
-{{ 'HostKeyAlgorithms' ~ ' ' ~ s.host_key_algorithms | join(',') }}
+{{ 'HostKeyAlgorithms ' ~ s.host_key_algorithms | join(',') }}
 {% endif %}
 {% if s.ignore_rhosts is defined and s.ignore_rhosts in ['yes', 'no'] %}
-{{ 'IgnoreRhosts' + ' ' + s.ignore_rhosts }}
+{{ 'IgnoreRhosts ' + s.ignore_rhosts }}
 {% endif %}
 {% if s.ignore_user_known_hosts is defined and
-      s.ignore_user_known_hosts in ['yes', 'no'] %}
-{{ 'IgnoreUserKnownHosts' + ' ' + s.ignore_user_known_hosts }}
+  s.ignore_user_known_hosts in ['yes', 'no'] %}
+{{ 'IgnoreUserKnownHosts ' + s.ignore_user_known_hosts }}
 {% endif %}
 {% if s.ip_qos is defined and s.ip_qos != '' %}
-{{ 'IPQoS' + ' ' + s.ip_qos }}
+{{ 'IPQoS ' + s.ip_qos }}
 {% endif %}
 {% if s.kbd_interactive_authentication is defined and
-      s.kbd_interactive_authentication in ['yes', 'no'] %}
-{{ 'KbdInteractiveAuthentication' + ' ' + s.kbd_interactive_authentication }}
+  s.kbd_interactive_authentication in ['yes', 'no'] %}
+{{ 'KbdInteractiveAuthentication ' + s.kbd_interactive_authentication }}
 {% endif %}
 {% if s.kerberos_authentication is defined and
-      s.kerberos_authentication in ['yes', 'no'] %}
-{{ 'KerberosAuthentication' + ' ' + s.kerberos_authentication }}
+  s.kerberos_authentication in ['yes', 'no'] %}
+{{ 'KerberosAuthentication ' + s.kerberos_authentication }}
 {% endif %}
 {% if s.kerberos_get_afs_token is defined and
-      s.kerberos_get_afs_token in ['yes', 'no'] %}
-{{ 'KerberosGetAFSToken' + ' ' + s.kerberos_get_afs_token }}
+  s.kerberos_get_afs_token in ['yes', 'no'] %}
+{{ 'KerberosGetAFSToken ' + s.kerberos_get_afs_token }}
 {% endif %}
 {% if s.kerberos_or_local_passwd is defined and
-      s.kerberos_or_local_passwd in ['yes', 'no'] %}
-{{ 'KerberosOrLocalPasswd' + ' ' + s.kerberos_or_local_passwd }}
+  s.kerberos_or_local_passwd in ['yes', 'no'] %}
+{{ 'KerberosOrLocalPasswd ' + s.kerberos_or_local_passwd }}
 {% endif %}
 {% if s.kerberos_ticket_cleanup is defined and
-      s.kerberos_ticket_cleanup in ['yes', 'no'] %}
-{{ 'KerberosTicketCleanup' + ' ' + s.kerberos_ticket_cleanup }}
+  s.kerberos_ticket_cleanup in ['yes', 'no'] %}
+{{ 'KerberosTicketCleanup ' + s.kerberos_ticket_cleanup }}
 {% endif %}
 {% if s.kerberos_ticket_cleanup is defined and
-      s.kerberos_ticket_cleanup in ['yes', 'no'] %}
-{{ 'KerberosTicketCleanup' + ' ' + s.kerberos_ticket_cleanup }}
+  s.kerberos_ticket_cleanup in ['yes', 'no'] %}
+{{ 'KerberosTicketCleanup ' + s.kerberos_ticket_cleanup }}
 {% endif %}
 {% if s.kex_algorithms is defined and s.kex_algorithms != '' %}
-{{ 'KexAlgorithms' ~ ' ' ~ s.kex_algorithms | join(',') }}
+{{ 'KexAlgorithms ' ~ s.kex_algorithms | join(',') }}
 {% endif %}
 {% if s.listen_address is defined and s.listen_address != '' %}
 {% if s.listen_address is string %}
-{{ 'ListenAddress' ~ ' ' ~ s.listen_address }}
+{{ 'ListenAddress ' ~ s.listen_address }}
 {% elif s.listen_address is sequence %}
 {% for a in s.listen_address %}
-{{ 'ListenAddress' ~ ' ' ~ a }}
+{{ 'ListenAddress ' ~ a }}
 {% endfor %}
 {% endif %}
 {% endif %}
 {% if s.login_grace_time is defined and s.login_grace_time != '' %}
-{{ 'LoginGraceTime' ~ ' ' ~ s.login_grace_time }}
+{{ 'LoginGraceTime ' ~ s.login_grace_time }}
 {% endif %}
 {% if s.log_level is defined and s.log_level in ['QUIET', 'FATAL', 'ERROR',
    'INFO', 'VERBOSE', 'DEBUG', 'DEBUG1', 'DEBUG2', 'DEBUG3'] %}
-{{ 'LogLevel' + ' ' + s.log_level }}
+{{ 'LogLevel ' + s.log_level }}
 {% endif %}
 {% if s.macs is defined and s.macs != '' %}
-{{ 'MACs' ~ ' ' ~ s.macs | join(',') }}
+{{ 'MACs ' ~ s.macs | join(',') }}
 {% endif %}
 {% if s.max_auth_tries is defined and s.max_auth_tries != '' %}
-{{ 'MaxAuthTries' ~ ' ' ~ s.max_auth_tries }}
+{{ 'MaxAuthTries ' ~ s.max_auth_tries }}
 {% endif %}
 {% if s.max_sessions is defined and s.max_sessions != '' %}
-{{ 'MaxSessions' ~ ' ' ~ s.max_sessions }}
+{{ 'MaxSessions ' ~ s.max_sessions }}
 {% endif %}
 {% if s.max_startups is defined and s.max_startups != '' %}
 {% for ms in s.max_startups %}
 {% if (ms.start is defined and ms.start != '') and
       (ms.rate is defined and ms.rate != '') and
       (ms.full is defined and ms.full != '') %}
-{{ 'MaxStartups' ~ ' ' ~ ms.start ~ ':' ~ ms.rate ~ ':' ~ ms.full }}
+{{ 'MaxStartups ' ~ ms.start ~ ':' ~ ms.rate ~ ':' ~ ms.full }}
 {% endif %}
 {% endfor %}
 {% endif %}
 {% if s.password_authentication is defined and
-      s.password_authentication in ['yes', 'no'] %}
-{{ 'PasswordAuthentication' + ' ' + s.password_authentication }}
+  s.password_authentication in ['yes', 'no'] %}
+{{ 'PasswordAuthentication ' + s.password_authentication }}
 {% endif %}
 {% if s.permit_empty_passwords is defined and
-      s.permit_empty_passwords in ['yes', 'no'] %}
-{{ 'PermitEmptyPasswords' + ' ' + s.permit_empty_passwords }}
+  s.permit_empty_passwords in ['yes', 'no'] %}
+{{ 'PermitEmptyPasswords ' + s.permit_empty_passwords }}
 {% endif %}
 {% if s.permit_listen is defined and s.permit_listen != '' %}
 {% for p in s.permit_listen %}
 {% if (p.host is defined and p.host != '') and
       (p.port is defined and p.port != '') %}
-{{ 'PermitListen' ~ ' ' ~ p.host ~ ':' ~ p.port }}
+{{ 'PermitListen ' ~ p.host ~ ':' ~ p.port }}
 {% elif ((p.host is defined and p.host == '') or
         (p.host is not defined)) and
         (p.port is defined and p.port != '') %}
-{{ 'PermitListen' ~ ' ' ~ p.port }}
+{{ 'PermitListen ' ~ p.port }}
 {% endif %}
 {% endfor %}
 {% endif %}
@@ -238,69 +236,68 @@
 {% for p in s.permit_open %}
 {% if (p.host is defined and p.host != '') and
       (p.port is defined and p.port != '') %}
-{{ 'PermitOpen' ~ ' ' ~ p.host ~ ':' ~ p.port }}
+{{ 'PermitOpen ' ~ p.host ~ ':' ~ p.port }}
 {% elif ((p.host is defined and p.host == '') or
         (p.host is not defined)) and
         (p.port is defined and p.port != '') %}
-{{ 'PermitOpen' ~ ' ' ~ p.port }}
+{{ 'PermitOpen ' ~ p.port }}
 {% endif %}
 {% endfor %}
 {% elif s.permit_open is defined and s.permit_open in ['any', 'none'] %}
-{{ 'PermitOpen' + ' ' + s.permit_open }}
+{{ 'PermitOpen ' + s.permit_open }}
 {% endif %}
-{% if s.permit_root_login is defined and
-      s.permit_root_login in ['yes', 'prohibit-password',
-                              'forced-commands-only', 'no'] %}
-{{ 'PermitRootLogin' + ' ' + s.permit_root_login }}
+{% if s.permit_root_login is defined and s.permit_root_login in
+  ['yes', 'prohibit-password', 'forced-commands-only', 'no'] %}
+{{ 'PermitRootLogin ' + s.permit_root_login }}
 {% endif %}
 {% if s.permit_tty is defined and s.permit_tty in ['yes', 'no'] %}
-{{ 'PermitTTY' + ' ' + s.permit_tty }}
+{{ 'PermitTTY ' + s.permit_tty }}
 {% endif %}
-{% if s.permit_tunnel is defined and
-      s.permit_tunnel in ['yes', 'no', 'point-to-point', 'ethernet'] %}
-{{ 'PermitTunnel' + ' ' + s.permit_tunnel }}
+{% if s.permit_tunnel is defined and s.permit_tunnel in
+  ['yes', 'no', 'point-to-point', 'ethernet'] %}
+{{ 'PermitTunnel ' + s.permit_tunnel }}
 {% endif %}
-{% if s.permit_user_environment is defined and
-      s.permit_user_environment in ['yes', 'no'] %}
-{{ 'PermitUserEnvironment' + ' ' + s.permit_user_environment }}
-{% elif s.permit_user_environment is defined and
-        s.permit_user_environment is sequence %}
-{{ 'PermitUserEnvironment' + ' ' + s.permit_user_environment | join(',') }}
+{% if s.permit_user_environment is defined and s.permit_user_environment in
+  ['yes', 'no'] %}
+{{ 'PermitUserEnvironment ' + s.permit_user_environment }}
+{% elif s.permit_user_environment is defined and s.permit_user_environment is
+  sequence %}
+{{ 'PermitUserEnvironment ' + s.permit_user_environment | join(',') }}
 {% endif %}
 {% if s.permit_user_rc is defined and s.permit_user_rc in ['yes', 'no'] %}
-{{ 'PermitUserRC' + ' ' + s.permit_user_rc }}
+{{ 'PermitUserRC ' + s.permit_user_rc }}
 {% endif %}
 {% if s.pid_file is defined and s.pid_file != '' %}
-{{ 'PidFile' ~ ' ' ~ s.pid_file }}
+{{ 'PidFile ' ~ s.pid_file }}
 {% endif %}
 {% if s.port is defined and s.port != '' %}
-{{ 'Port' ~ ' ' ~ s.port }}
+{{ 'Port ' ~ s.port }}
 {% endif %}
 {% if s.print_last_log is defined and s.print_last_log in ['yes', 'no'] %}
-{{ 'PrintLastLog' + ' ' + s.print_last_log }}
+{{ 'PrintLastLog ' + s.print_last_log }}
 {% endif %}
 {% if s.print_motd is defined and s.print_motd in ['yes', 'no'] %}
-{{ 'PrintMotd' + ' ' + s.print_motd }}
+{{ 'PrintMotd ' + s.print_motd }}
 {% endif %}
 {% if s.pub_key_accepted_key_types is defined and
-      s.pub_key_accepted_key_types != '' %}
-{{ 'PubkeyAcceptedKeyTypes' ~ ' ' ~ s.pub_key_accepted_key_types | join(',') }}
+  s.pub_key_accepted_key_types != '' %}
+{{ 'PubkeyAcceptedKeyTypes ' ~ s.pub_key_accepted_key_types | join(',') }}
 {% endif %}
-{% if s.pubkey_authentication is defined and
-      s.pubkey_authentication in ['yes', 'no'] %}
-{{ 'PubkeyAuthentication' + ' ' + s.pubkey_authentication }}
+{% if s.pubkey_authentication is defined and s.pubkey_authentication in
+  ['yes', 'no'] %}
+{{ 'PubkeyAuthentication ' + s.pubkey_authentication }}
 {% endif %}
 {% if s.rekey_limit is defined and s.rekey_limit != '' %}
-{{ 'RekeyLimit' ~ ' ' ~ s.rekey_limit }}
+{{ 'RekeyLimit ' ~ s.rekey_limit }}
 {% endif %}
 {% if s.revoked_keys is defined and s.revoked_keys != '' %}
-{{ 'RevokedKeys' ~ ' ' ~ s.revoked_keys }}
+{{ 'RevokedKeys ' ~ s.revoked_keys }}
 {% endif %}
 {% if s.r_domain is defined and s.r_domain != '' %}
-{{ 'RDomain' ~ ' ' ~ s.r_domain }}
+{{ 'RDomain ' ~ s.r_domain }}
 {% endif %}
 {% if s.r_domain is defined and s.r_domain != '' %}
-{{ 'RDomain' ~ ' ' ~ s.r_domain }}
+{{ 'RDomain ' ~ s.r_domain }}
 {% endif %}
 {% if s.set_env is defined and s.set_env != '' %}
 {% for e in s.set_env %}
@@ -311,11 +308,11 @@
 {% endfor %}
 {% endif %}
 {% if s.stream_local_bind_mask is defined and s.stream_local_bind_mask != '' %}
-{{ 'StreamLocalBindMask' ~ ' ' ~ s.stream_local_bind_mask }}
+{{ 'StreamLocalBindMask ' ~ s.stream_local_bind_mask }}
 {% endif %}
-{% if s.stream_local_bind_unlink is defined and
-      s.stream_local_bind_unlink in ['yes', 'no'] %}
-{{ 'StreamLocalBindUnlink' + ' ' + s.stream_local_bind_unlink }}
+{% if s.stream_local_bind_unlink is defined and s.stream_local_bind_unlink in
+  ['yes', 'no'] %}
+{{ 'StreamLocalBindUnlink ' + s.stream_local_bind_unlink }}
 {% endif %}
 {% if s.subsystem is defined and s.subsystem != '' %}
 {% for ss in s.subsystem %}
@@ -327,36 +324,36 @@
 {% endfor %}
 {% endif %}
 {% if s.syslog_facility is defined and s.syslog_facility in ['DAEMON', 'USER',
-   'AUTH', 'LOCAL0', 'LOCAL1', 'LOCAL2', 'LOCAL3', 'LOCAL4', 'LOCAL5', 'LOCAL6',
-   'LOCAL7'] %}
-{{ 'SyslogFacility' + ' ' + s.syslog_facility }}
+  'AUTH', 'LOCAL0', 'LOCAL1', 'LOCAL2', 'LOCAL3', 'LOCAL4', 'LOCAL5', 'LOCAL6',
+  'LOCAL7'] %}
+{{ 'SyslogFacility ' + s.syslog_facility }}
 {% endif %}
 {% if s.tcp_keep_alive is defined and s.tcp_keep_alive in ['yes', 'no'] %}
-{{ 'TCPKeepAlive' + ' ' + s.tcp_keep_alive }}
+{{ 'TCPKeepAlive ' + s.tcp_keep_alive }}
 {% endif %}
 {% if s.trusted_user_ca_keys is defined and s.trusted_user_ca_keys != '' %}
-{{ 'TrustedUserCAKeys' ~ ' ' ~ s.trusted_user_ca_keys }}
+{{ 'TrustedUserCAKeys ' ~ s.trusted_user_ca_keys }}
 {% endif %}
 {% if s.use_dns is defined and s.use_dns in ['yes', 'no'] %}
-{{ 'UseDNS' + ' ' + s.use_dns }}
+{{ 'UseDNS ' + s.use_dns }}
 {% endif %}
 {% if s.use_pam is defined and s.use_pam in ['yes', 'no'] %}
-{{ 'UsePAM' + ' ' + s.use_pam }}
+{{ 'UsePAM ' + s.use_pam }}
 {% endif %}
 {% if s.version_addendum is defined and s.version_addendum != '' %}
-{{ 'VersionAddendum' ~ ' ' ~ s.version_addendum }}
+{{ 'VersionAddendum ' ~ s.version_addendum }}
 {% endif %}
 {% if s.x11_display_offset is defined and s.x11_display_offset != '' %}
-{{ 'X11DisplayOffset' ~ ' ' ~ s.x11_display_offset }}
+{{ 'X11DisplayOffset ' ~ s.x11_display_offset }}
 {% endif %}
 {% if s.x11_forwarding is defined and s.x11_forwarding in ['yes', 'no'] %}
-{{ 'X11Forwarding' + ' ' + s.x11_forwarding }}
+{{ 'X11Forwarding ' + s.x11_forwarding }}
 {% endif %}
 {% if s.x11_use_localhost is defined and s.x11_use_localhost in ['yes', 'no'] %}
-{{ 'X11UseLocalhost' + ' ' + s.x11_use_localhost }}
+{{ 'X11UseLocalhost ' + s.x11_use_localhost }}
 {% endif %}
 {% if s.x_auth_location is defined and s.x_auth_location in ['yes', 'no'] %}
-{{ 'XAuthLocation' + ' ' + s.x_auth_location }}
+{{ 'XAuthLocation ' + s.x_auth_location }}
 {% endif %}
 {% if s.match is defined and s.match != '' %}
 {% include 'sshd_match_block.j2' %}

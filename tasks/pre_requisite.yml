@@ -1,33 +1,33 @@
 ---
 - name: openssh | Add the OS specific variables
-  include_vars: "{{
-    hostvars[inventory_hostname]['ansible_os_family'] + '.yml' }}"
+  ansible.builtin.include_vars:
+    file: "{{ hostvars[inventory_hostname]['ansible_os_family'] + '.yml' }}"
 - name: openssh | Set facts about openssh role
-  set_fact:
+  ansible.builtin.set_fact:
     openssh_restart_method: "{{ hostvars[inventory_hostname]['openssh'] |
-      json_query('[].restart_method | [0]') }}"
+      community.general.json_query('[].restart_method | [0]') }}"
     openssh_settings: "{{ hostvars[inventory_hostname]['openssh'] |
-      json_query('[].settings[]') }}"
+      community.general.json_query('[].settings[]') }}"
 - name: openssh | Assert that restart method variable have proper value
-  assert:
+  ansible.builtin.assert:
     that:
-    - "vars['openssh_restart_method'] in ['reload', 'restart']"
+      - "vars['openssh_restart_method'] in ['reload', 'restart']"
     msg: "OpenSSH restart method must be in 'reload' or 'restart'."
     quiet: "true"
   when:
-  - "vars['openssh_restart_method'] is defined"
+    - "vars['openssh_restart_method'] is defined"
 - name: openssh | Set service restart method when restart method is defined
-  set_fact:
+  ansible.builtin.set_fact:
     openssh_restart_cmd: "{{ vars['openssh_restart_method'] + 'ed' }}"
   when:
-  - "vars['openssh_restart_method'] is defined"
+    - "vars['openssh_restart_method'] is defined"
 - name: openssh | Set service restart method to SIGHUP
-  set_fact:
+  ansible.builtin.set_fact:
     openssh_restart_cmd: "reloaded"
   when:
-  - "vars['openssh_restart_method'] is not defined"
+    - "vars['openssh_restart_method'] is not defined"
 - name: openssh | Create ssh directory
-  file:
+  ansible.builtin.file:
     path: "{{ hostvars[inventory_hostname]['openssh_dest'] }}"
     state: "directory"
     owner: "root"

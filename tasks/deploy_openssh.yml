@@ -1,9 +1,9 @@
 ---
 - name: openssh | Deploy openssh daemon configuration
-  template:
+  ansible.builtin.template:
     src: "sshd_config.j2"
     dest: "{{ hostvars[inventory_hostname]['openssh_dest'] + '/' +
-              'sshd_config' }}"
+      'sshd_config' }}"
     owner: "root"
     group: "root"
     mode: "0644"
@@ -11,15 +11,17 @@
     # configured, will be evaluated as well
     validate: "sshd -T -C user=ansible,host=none,addr=none -f %s"
   notify:
-  - "Reload openssh daemon"
+    - "Reload openssh daemon"
 - name: openssh | Enable openssh daemon service
-  systemd:
+  ansible.builtin.systemd:
     name: "{{ hostvars[inventory_hostname]['openssh_service'] }}"
     enabled: "yes"
   when:
-  - "hostvars[inventory_hostname]['openssh'] |
-     json_query(vars['openssh_enable']) is defined"
-  - "hostvars[inventory_hostname]['openssh'] |
-     json_query(vars['openssh_enable']) == 'true'"
+    - "hostvars[inventory_hostname]['openssh'] is defined"
+    - "hostvars[inventory_hostname]['openssh'] != ''"
+    - "hostvars[inventory_hostname]['openssh'] |
+       community.general.json_query(vars['openssh_enable']) is defined"
+    - "hostvars[inventory_hostname]['openssh'] |
+       community.general.json_query(vars['openssh_enable']) == 'true'"
   vars:
     openssh_enable: "[] | map(&enable || 'false', @) | [0]"

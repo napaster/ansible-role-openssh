@@ -1,11 +1,11 @@
-{% if s.authentication_methods is string and
-      s.authentication_methods in ['any', 'password', 'publickey', 'hostbased',
-      'keyboard-interactive', 'gssapi-with-mic', 'none'] %}
+{% if s.authentication_methods is string and s.authentication_methods in
+  ['any', 'password', 'publickey', 'hostbased', 'keyboard-interactive',
+  'gssapi-with-mic', 'none'] %}
 {{ 'AuthenticationMethods' + ' ' + s.authentication_methods }}
 {% elif s.authentication_methods is sequence %}
 {% for m in s.authentication_methods %}
 {% if m is defined and m in ['any', 'password', 'publickey', 'hostbased',
-   'keyboard-interactive', 'gssapi-with-mic', 'none'] %}
+  'keyboard-interactive', 'gssapi-with-mic', 'none'] %}
 {% if loop.first %}
 {{ 'AuthenticationMethods' + ' ' -}}
 {% endif %}

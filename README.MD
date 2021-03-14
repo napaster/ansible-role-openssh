@@ -4,20 +4,20 @@ Deploy OpenSSH daemon configuration.
 
 ## Requirements
 
-* Ansible 2.8+;
+* Ansible 3.0.0+;
 
 ## Example configuration
 
 ```yaml
 ---
 openssh:
-# Enable sshd service or not.
+# Enable sshd service or not
 - enable: 'true'
-# Restart sshd service after deploy or not.
+# Restart sshd service after deploy or not
   restart: 'true'
-# Restart method for sshd service - 'reload' or 'restart'.
+# Restart method for sshd service - 'reload' or 'restart'
   restart_method: 'reload'
-# openssh daemon settings.
+# OpenSSH daemon settings
   settings:
 # Specifies what environment variables sent by the client will be copied into
 # the session's environ. The TERM environment variable is always accepted
