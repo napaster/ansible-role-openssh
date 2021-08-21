@@ -35,15 +35,16 @@
   s.authorized_keys_command_content != '' %}
 {{ 'AuthorizedKeysCommand ' + hostvars[inventory_hostname]['openssh_dest'] +
   '/AuthorizedKeysCommand' }}
+{{ 'AuthorizedKeysCommandUser root' }}
 {% else %}
 {% if s.authorized_keys_command is defined and
   s.authorized_keys_command != '' %}
 {{ 'AuthorizedKeysCommand ' ~ s.authorized_keys_command }}
 {% endif %}
-{% endif %}
 {% if s.authorized_keys_command_user is defined and
   s.authorized_keys_command_user != '' %}
 {{ 'AuthorizedKeysCommandUser ' ~ s.authorized_keys_command_user }}
+{% endif %}
 {% endif %}
 {% if s.authorized_keys_file is defined and s.authorized_keys_file != '' %}
 {{ 'AuthorizedKeysFile \"' ~ s.authorized_keys_file | join(' ') ~ '\"' }}
