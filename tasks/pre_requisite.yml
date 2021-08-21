@@ -8,6 +8,9 @@
       community.general.json_query('[].restart_method | [0]') }}"
     openssh_settings: "{{ hostvars[inventory_hostname]['openssh'] |
       community.general.json_query('[].settings[]') }}"
+    openssh_settings_authorized_keys_command_content: "{{
+      hostvars[inventory_hostname]['openssh'] | community.general.json_query('
+      [].settings[].authorized_keys_command_content | [0]') }}"
 - name: openssh | Assert that restart method variable have proper value
   ansible.builtin.assert:
     that:

@@ -1,0 +1,11 @@
+---
+- name: openssh | Deploy openssh daemon AuthorizedKeysCommand file
+  ansible.builtin.copy:
+    dest: "{{ hostvars[inventory_hostname]['openssh_dest'] +
+      '/AuthorizedKeysCommand' }}"
+    owner: "root"
+    group: "root"
+    mode: "0500"
+    content: "{{ vars['openssh_settings_authorized_keys_command_content'] }}"
+  notify:
+    - "Reload openssh daemon"

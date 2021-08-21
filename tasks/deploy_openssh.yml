@@ -2,8 +2,7 @@
 - name: openssh | Deploy openssh daemon configuration
   ansible.builtin.template:
     src: "sshd_config.j2"
-    dest: "{{ hostvars[inventory_hostname]['openssh_dest'] + '/' +
-      'sshd_config' }}"
+    dest: "{{ hostvars[inventory_hostname]['openssh_dest'] + '/sshd_config' }}"
     owner: "root"
     group: "root"
     mode: "0644"

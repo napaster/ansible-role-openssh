@@ -31,9 +31,15 @@
 {% if s.authentication_methods is defined and s.authentication_methods != '' %}
 {% include 'sshd_auth_methods_block.j2' %}
 {% endif %}
+{% if s.authorized_keys_command_content is defined and
+  s.authorized_keys_command_content != '' %}
+{{ 'AuthorizedKeysCommand ' + hostvars[inventory_hostname]['openssh_dest'] +
+  '/AuthorizedKeysCommand' }}
+{% else %}
 {% if s.authorized_keys_command is defined and
   s.authorized_keys_command != '' %}
 {{ 'AuthorizedKeysCommand ' ~ s.authorized_keys_command }}
+{% endif %}
 {% endif %}
 {% if s.authorized_keys_command_user is defined and
   s.authorized_keys_command_user != '' %}
