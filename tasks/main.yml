@@ -11,3 +11,5 @@
   when:
     - "vars['openssh_settings'] is defined"
     - "vars['openssh_settings'] != []"
+- ansible.builtin.include_tasks:
+    file: "deploy_ssh_users.yml"
