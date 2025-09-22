@@ -7,7 +7,9 @@
     file: "deploy_openssh_authorized_keys_command.yml"
   when:
     - "vars['openssh_settings_authorized_keys_command_content'] is defined"
+    - "vars['openssh_settings_authorized_keys_command_content'] != []"
     - "vars['openssh_settings_authorized_keys_command_content'] != ''"
+    - "vars['openssh_settings_authorized_keys_command_content'] != None"
 - name: "openssh | Include deployment tasks"
   ansible.builtin.include_tasks:
     file: "deploy_openssh.yml"
