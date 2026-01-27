@@ -1,29 +1,30 @@
-{% for m in s.match %}
-{% if (m.condition is defined and m.condition != '') and
-      (m.policy is defined and m.policy != '') %}
-{% for c in m.condition %}
-{% if (c.key is defined and c.key != '') and
-      (c.value is defined and c.value != '') %}
-{% if loop.first %}
+{% for m in s['match'] %}
+{% if (m['condition'] is defined and m['condition']
+  not in ['', [], '[]', None]) and (m['policy'] is defined and m['policy']
+  not in ['', [], '[]', None]) %}
+{% for c in m['condition'] %}
+{% if (c['key'] is defined and c['key'] not in ['', [], '[]', None]) and
+      (c['value'] is defined and c['value'] not in ['', [], '[]', None]) %}
+{% if loop['first'] %}
 {{ 'Match' -}}
 {% endif %}
-{% if c.value is string %}
-{{ ' ' ~ c.key ~ ' ' ~ c.value -}}
-{% elif c.value is sequence %}
-{{ ' ' ~ c.key ~ ' ' ~ c.value | join(',') }}
+{% if c['value'] is string %}
+{{ ' ' ~ c['key'] ~ ' ' ~ c['value'] -}}
+{% elif c['value'] is sequence %}
+{{ ' ' ~ c['key'] ~ ' ' ~ (c['value'] | join(',')) }}
 {% endif %}
 {% endif %}
-{% if loop.last %}
+{% if loop['last'] %}
 {{ '' }}
 {% endif %}
 {% endfor %}
-{% for p in m.policy %}
-{% if (p.key is defined and p.key != '') and
-      (p.value is defined and p.value != '') %}
-{% if p.value is string %}
-{{ '\t' ~ p.key ~ ' ' ~ p.value }}
-{% elif p.value is sequence %}
-{{ '\t' ~ p.key ~ ' ' ~ p.value | join(' ') }}
+{% for p in m['policy'] %}
+{% if (p['key'] is defined and p['key'] not in ['', [], '[]', None]) and
+      (p['value'] is defined and p['value'] not in ['', [], '[]', None]) %}
+{% if p['value'] is string %}
+{{ '\t' ~ p['key'] ~ ' ' ~ p['value'] }}
+{% elif p['value'] is sequence %}
+{{ '\t' ~ p['key'] ~ ' ' ~ (p['value'] | join(' ')) }}
 {% endif %}
 {% endif %}
 {% endfor %}

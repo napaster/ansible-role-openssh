@@ -106,12 +106,12 @@ openssh:
 # supplied by 'authorized_keys_command' does not successfully authenticate and
 # authorize the user then public key authentication continues using the usual
 # authorized_keys_file files. By default, no 'authorized_keys_command' is run.
-    authorized_keys_command: ''
+    authorized_keys_command: '/etc/ssh/AuthorizedKeysCommand %%u'
 # Specifies the user under whose account the 'authorized_keys_command' is run. It
 # is recommended to use a dedicated user that has no other role on the host
 # than running authorized keys commands. If 'authorized_keys_command' is
 # specified but 'authorized_keys_command_user' is not, then sshd will refuse to
-# start.
+# start
     authorized_keys_command_user: 'nobody'
 # Specifies the file that contains the public keys used for user authentication.
 # The format is described in the AUTHORIZED_KEYS FILE FORMAT section of sshd.
@@ -119,7 +119,41 @@ openssh:
 # section. After expansion, 'authorized_keys_file' is taken to be an absolute
 # path or one relative to the user's home directory. Multiple files may be
 # listed. Alternately this option may be set to none to skip checking for user
-# keys in files.
+# keys in files
+# Role feature - the next content will be program for 'authorized_keys_command'
+# option (just example from https://serverfault.com/questions/1141672)
+    authorized_keys_command_content: |
+      # Check for required username argument
+      if [[ -z "${1}" ]]
+        then
+          >&2 echo "Username is required"
+          exit 1
+      fi
+
+      # Environment variables for configuration
+      TOKEN="GitLab-access-token"
+      PROJECT_ID="123"
+      GITLAB_BASE_URL="https://gitlab.mygitlab.tld/api/v4/projects"
+      USERNAME="${1}"
+
+      # Complete URL to the user's public key file
+      USER_KEY_URL="${GITLAB_BASE_URL}/${PROJECT_ID}/repository/files/${USERNAME}%2Epub/raw?ref=main"
+
+      # Use curl with the token to fetch the public key from the URL
+      RESPONSE=$(curl --header "Private-Token: ${TOKEN}" --silent --fail \
+      --write-out "HTTPSTATUS:%{http_code}" "${USER_KEY_URL}")
+
+      HTTP_STATUS=$(echo "${RESPONSE}" | tr -d '\n' | \
+      sed -e 's/.*HTTPSTATUS://')
+
+      # Output only the SSH key to stdout
+      if [[ "${HTTP_STATUS}" == "200" ]]
+        then
+          echo "${RESPONSE}" | sed -e 's/HTTPSTATUS:.*//g'
+      else
+        >&2 echo "Failed to fetch keys with status code ${HTTP_STATUS}"
+        exit 1
+      fi
     authorized_keys_file:
     - '.ssh/authorized_keys'
     - '.ssh/authorized_keys2'

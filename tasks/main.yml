@@ -4,15 +4,14 @@
     file: "pre_requisite.yml"
 - name: "openssh | Include authorized keys command tasks"
   ansible.builtin.include_tasks:
-    file: "deploy_openssh_authorized_keys_command.yml"
+    file: "deploy.d/openssh_authorized_keys_command.yml"
   when:
-    - "vars['openssh_settings_authorized_keys_command_content'] is defined"
-    - "vars['openssh_settings_authorized_keys_command_content'] != []"
-    - "vars['openssh_settings_authorized_keys_command_content'] != ''"
-    - "vars['openssh_settings_authorized_keys_command_content'] != None"
+    - "lookup('ansible.builtin.vars',
+      'openssh_settings_authorized_keys_command_content',
+      default='') not in ['', [], '[]', None]"
 - name: "openssh | Include deployment tasks"
   ansible.builtin.include_tasks:
-    file: "deploy_openssh.yml"
+    file: "deploy.d/openssh.yml"
   when:
-    - "vars['openssh_settings'] is defined"
-    - "vars['openssh_settings'] != []"
+    - "lookup('ansible.builtin.vars', 'openssh_sshd_settings',
+      default='') not in ['', [], '[]', None]"

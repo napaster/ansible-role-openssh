@@ -6,6 +6,7 @@
     owner: "root"
     group: "root"
     mode: "0500"
-    content: "{{ vars['openssh_settings_authorized_keys_command_content'] }}"
+    content: "{{ lookup('ansible.builtin.vars',
+      'openssh_settings_authorized_keys_command_content') }}"
   notify:
     - "Reload openssh daemon"

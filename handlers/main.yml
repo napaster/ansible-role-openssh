@@ -1,14 +1,14 @@
 ---
-- name: Reload openssh daemon
+- name: "openssh | Restart systemd service"
   ansible.builtin.systemd:
     name: "{{ hostvars[inventory_hostname]['openssh_service'] }}"
-    state: "{{ vars['openssh_restart_cmd'] }}"
+    state: "{{ lookup('ansible.builtin.vars', 'openssh_restart_cmd') }}"
+  listen: "Reload openssh daemon"
   when:
     - "hostvars[inventory_hostname]['openssh'] is defined"
-    - "hostvars[inventory_hostname]['openssh'] != ''"
+    - "hostvars[inventory_hostname]['openssh'] not in ['', [], '[]', None]"
     - "hostvars[inventory_hostname]['openssh'] |
-       json_query(vars['openssh_restart']) is defined"
-    - "hostvars[inventory_hostname]['openssh'] |
-       json_query(vars['openssh_restart']) == 'true'"
+       community.general.json_query(lookup('ansible.builtin.vars',
+      'openssh_restart', default='')) == 'true'"
   vars:
     openssh_restart: "[] | map(&restart || 'false', @) | [0]"

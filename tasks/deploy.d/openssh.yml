@@ -17,10 +17,9 @@
     enabled: "yes"
   when:
     - "hostvars[inventory_hostname]['openssh'] is defined"
-    - "hostvars[inventory_hostname]['openssh'] != ''"
+    - "hostvars[inventory_hostname]['openssh'] not in ['', [], '[]', None]"
     - "hostvars[inventory_hostname]['openssh'] |
-       community.general.json_query(vars['openssh_enable']) is defined"
-    - "hostvars[inventory_hostname]['openssh'] |
-       community.general.json_query(vars['openssh_enable']) == 'true'"
+       community.general.json_query(lookup('ansible.builtin.vars',
+      'openssh_enable', default='')) == 'true'"
   vars:
     openssh_enable: "[] | map(&enable || 'false', @) | [0]"
