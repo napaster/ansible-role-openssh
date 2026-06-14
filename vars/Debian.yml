@@ -1,3 +1,8 @@
 ---
 openssh_dest: '/etc/ssh'
-openssh_service: 'sshd'
+# На Debian/Ubuntu systemd-unit называется ssh.service, не sshd.service.
+# Алиас Alias=sshd.service в [Install] секции даёт `systemctl enable sshd`
+# работать только ПОСЛЕ того как unit был enabled первый раз. На свежей
+# VM-ке этот alias ещё не зарегистрирован — `systemctl enable sshd` падает
+# с "Could not find the requested service sshd". Используем 'ssh' напрямую.
+openssh_service: 'ssh'
